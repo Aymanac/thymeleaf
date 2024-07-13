@@ -1,14 +1,8 @@
-# Use OpenJDK 21 as a parent image
+FROM maven:3.9.5-openjdk-21 AS build
+COPY . .
+RUN mvn clean package -DskipTests
+
 FROM openjdk:21-jdk-slim
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the jar file from the target directory to the container
-COPY target/app-0.0.1-SNAPSHOT.jar app.jar
-
-# Make port 8080 available to the world outside this container
+COPY --from=build /target/app-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
