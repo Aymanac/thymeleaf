@@ -1,4 +1,4 @@
-# Use an official OpenJDK runtime as a parent image
+# Use OpenJDK 21 as a parent image
 FROM openjdk:21-jdk-slim
 
 # Set the working directory in the container
